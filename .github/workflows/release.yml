@@ -52,10 +52,10 @@ env:
   ISS_SCRIPT:        "installer/setup.iss"
 
   # SmartAssembly — adjust path if installed elsewhere on the runner
-  SA_CLI: "C:\\Program Files\\Red Gate\\SmartAssembly 8\\SmartAssembly.com"
+  SA_CLI: "${{ github.workspace }}\\tools\\SmartAssembly\\SmartAssembly.com"
 
   # Inno Setup — adjust path if installed elsewhere on the runner
-  ISCC_PATH: "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe"
+  ISCC_PATH: "${{ github.workspace }}\\tools\\InnoSetup\\ISCC.exe"
 
 jobs:
   # ==========================================================================

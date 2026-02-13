@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartAssembly.Attributes</name>
+    </assembly>
+    <members>
+        <member name="T:SmartAssembly.Attributes.DoNotCaptureAttribute">
+            <summary>
+            When added to any type (class, enum, interface, or struct), prevents that type's fields from being included in error reports.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotCaptureVariablesAttribute">
+            <summary>
+            Prevent variables from being included in error reports.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotEncodeStringsAttribute">
+            <summary>
+            Exclude the member from Strings Encoding.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotMoveAttribute">
+            <summary>
+            Prevent the method from being moved to another type if Method Parent Obfuscation is turned on. Note that a method with any attribute is automatically excluded from moving.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotMoveMethodsAttribute">
+            <summary>
+            Prevent all methods in the class from being moved to another type if Method Parent Obfuscation is turned on.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotObfuscateAttribute">
+            <summary>
+            Exclude the member from obfuscation.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotObfuscateControlFlowAttribute">
+            <summary>
+            Do not apply Control Flow Obfuscation.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotObfuscateTypeAttribute">
+            <summary>
+            Exclude the type definition, as well as all the type's members from obfuscation.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotPruneAttribute">
+            <summary>
+            Exclude the type definition from pruning.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotPruneTypeAttribute">
+            <summary>
+            Exclude the type definition, as well as all type's members, from pruning.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.DoNotSealTypeAttribute">
+            <summary>
+            Do not seal the type. This overrides the option to automatically seal all possible classes.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.EncodeStringsAttribute">
+            <summary>
+            If Strings Encoding is turned on in options, revert the effect of <see cref="T:SmartAssembly.Attributes.DoNotEncodeStringsAttribute"/> set on a parent member.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ExcludeFromMemberRefsProxyAttribute">
+            <summary>
+            Turn off References Dynamic Proxy for this member.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ForceObfuscateAttribute">
+            <summary>
+            Force element to be obfuscated, even if it was excluded by safety mechanisms. Takes precedence over <see cref="T:SmartAssembly.Attributes.DoNotObfuscateAttribute"/>!
+            </summary>
+        </member>
+        <member name="M:SmartAssembly.Attributes.ForceObfuscateAttribute.#ctor(System.Boolean)">
+            <summary>
+            Force element to be obfuscated, even if it was excluded by safety mechanisms. Takes precedence over <see cref="T:SmartAssembly.Attributes.DoNotObfuscateAttribute"/>!
+            </summary>
+            <param name="useHashAsName">If <c>true</c>, uses MD5 hash of a method name prefixed with <c>"_"</c>. Otherwise, uses default Name Mangling setting.</param>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ObfuscateControlFlowAttribute">
+            <summary>
+            Turn on control flow obfuscation. This overrides the control flow obfuscation level set in the SmartAssembly project.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ObfuscateNamespaceToAttribute">
+            <summary>
+            Force the type to be in a chosen namespace.
+            </summary>
+        </member>
+        <member name="M:SmartAssembly.Attributes.ObfuscateNamespaceToAttribute.#ctor(System.String)">
+            <summary>
+            Force the type to be in a chosen namespace.
+            </summary>
+            <param name="newName">Name of the namespace the type should be in.</param>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ObfuscateToAttribute">
+            <summary>
+            Force the type or field to be renamed to a chosen name. Only rename methods if Advanced Renaming Algorithm is used.
+            </summary>
+        </member>
+        <member name="M:SmartAssembly.Attributes.ObfuscateToAttribute.#ctor(System.String)">
+            <summary>
+            Force the type or field to be renamed to a chosen name. Only rename methods if Advanced Renaming Algorithm is used.
+            </summary>
+            <param name="newName">Name to rename the type or field to.</param>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ReportExceptionAttribute">
+            <summary>
+            Report any unhandled exception, which occurs in this method. This is useful for DLLs because it saves you catching exceptions yourself and passing the exceptions to SmartAssembly.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ReportUsageAttribute">
+            <summary>
+            Increment feature usage counter each time the method is ran. By default, the method's name is used for the feature name.
+            </summary>
+        </member>
+        <member name="M:SmartAssembly.Attributes.ReportUsageAttribute.#ctor">
+            <summary>
+            Increment feature usage counter each time the method is ran. By default, the method's name is used for the feature name.
+            </summary>
+        </member>
+        <member name="M:SmartAssembly.Attributes.ReportUsageAttribute.#ctor(System.String)">
+            <summary>
+            Increment feature usage counter each time the method is ran. By default, the method's name is used for the feature name.
+            </summary>
+            <param name="featureName">The supplied string is used for the feature name.</param>
+        </member>
+        <member name="T:SmartAssembly.Attributes.StayPublicAttribute">
+            <summary>
+            Ensure the member remains public after obfuscation. When SmartAssembly obfuscates some members, they may become internal. This can stop other applications from post-processing the obfuscated code.
+            </summary>
+        </member>
+        <member name="T:SmartAssembly.Attributes.ForwardWhenMergedAttribute">
+            <summary>
+            When a member must be visible to external assemblies (like plugins) after merging, SmartAssembly creates an embedded assembly forwarding calls to the members marked with this attribute from the original to the merged location.
+            </summary>
+        </member>
+    </members>
+</doc>
