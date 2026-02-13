@@ -135,13 +135,14 @@ jobs:
         shell: pwsh
         run: |
           dotnet publish "${{ env.PROJECT_PATH }}" `
-            --configuration Release `
-            --output "${{ env.PUBLISH_DIR }}" `
-            --self-contained false `
-            --no-restore `
-            -p:PublishSingleFile=false `
-            -p:AssemblyVersion="${{ env.VERSION }}"
-            -p:FileVersion="${{ env.VERSION }}"
+          --configuration Release `
+          --output "${{ env.PUBLISH_DIR }}" `
+          --self-contained false `
+          --no-restore `
+          "-p:PublishSingleFile=false" `
+          "-p:AssemblyVersion=${{ env.VERSION }}" `
+          "-p:FileVersion=${{ env.VERSION }}"
+
 
       # -----------------------------------------------------------------------
       - name: Upload published artifacts
