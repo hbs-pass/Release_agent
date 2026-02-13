@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+    <RootNamespace>IFA.Simulator.Worker</RootNamespace>
+    <AssemblyName>IFA.Simulator.Worker</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>HyperIT</Authors>
+    <Description>IFA Simulator - Background Event Pipeline Worker</Description>
+    <UserSecretsId>ifa-simulator-worker</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IFA.Simulator.Core\IFA.Simulator.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      Microsoft.Extensions.Hosting ya incluido en Microsoft.NET.Sdk.Worker
+    -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>

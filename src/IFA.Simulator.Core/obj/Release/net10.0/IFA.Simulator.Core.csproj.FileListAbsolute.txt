@@ -1,0 +1,5 @@
+C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Core\obj\Release\net10.0\IFA.Simulator.Core.csproj.AssemblyReference.cache
+C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Core\obj\Release\net10.0\IFA.Simulator.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Core\obj\Release\net10.0\IFA.Simulator.Core.AssemblyInfoInputs.cache
+C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Core\obj\Release\net10.0\IFA.Simulator.Core.AssemblyInfo.cs
+C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Core\obj\Release\net10.0\IFA.Simulator.Core.csproj.CoreCompileInputs.cache

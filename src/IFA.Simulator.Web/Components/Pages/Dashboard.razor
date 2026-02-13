@@ -1,0 +1,460 @@
+@page "/"
+@using IFA.Simulator.Core.Models
+@using IFA.Simulator.Web.Services
+@using MudBlazor
+@using CoreSeverity = IFA.Simulator.Core.Models.Severity
+@inject DashboardService DashboardSvc
+@implements IDisposable
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    .ifa-root {
+        background: #080c10;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        padding: 24px;
+        color: #e2e8f0;
+    }
+
+    .ifa-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #1e2a38;
+    }
+
+    .ifa-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .ifa-logo-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ef4444;
+        box-shadow: 0 0 10px #ef4444;
+        animation: pulse-dot 2s infinite;
+    }
+
+    @@keyframes pulse-dot {
+        0%, 100% { opacity: 1; box-shadow: 0 0 10px #ef4444; }
+        50%       { opacity: 0.5; box-shadow: 0 0 4px #ef4444; }
+    }
+
+    .ifa-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: #f1f5f9;
+        text-transform: uppercase;
+    }
+
+    .ifa-subtitle {
+        font-size: 11px;
+        color: #475569;
+        letter-spacing: 0.1em;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .ifa-status-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: #64748b;
+    }
+
+    .status-pill {
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .status-running { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+    .status-stopped { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+    .status-idle    { background: rgba(100,116,139,0.15);color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+
+    .ifa-btn {
+        padding: 7px 16px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        font-family: 'Inter', sans-serif;
+        cursor: pointer;
+        border: none;
+        transition: all 0.15s ease;
+        letter-spacing: 0.04em;
+    }
+
+    .btn-start  { background: #16a34a; color: #fff; }
+    .btn-start:hover  { background: #15803d; }
+    .btn-stop   { background: #dc2626; color: #fff; }
+    .btn-stop:hover   { background: #b91c1c; }
+    .btn-reset  { background: transparent; color: #94a3b8; border: 1px solid #1e2a38; }
+    .btn-reset:hover  { border-color: #334155; color: #e2e8f0; }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .kpi-card {
+        background: #0d1117;
+        border: 1px solid #1e2a38;
+        border-radius: 8px;
+        padding: 16px 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .kpi-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 2px;
+    }
+
+    .kpi-total::before   { background: #3b82f6; }
+    .kpi-critical::before{ background: #ef4444; }
+    .kpi-warning::before { background: #f59e0b; }
+    .kpi-dispatch::before{ background: #22c55e; }
+
+    .kpi-value {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .kpi-total .kpi-value    { color: #60a5fa; }
+    .kpi-critical .kpi-value { color: #f87171; }
+    .kpi-warning .kpi-value  { color: #fbbf24; }
+    .kpi-dispatch .kpi-value { color: #4ade80; }
+
+    .kpi-label {
+        font-size: 10px;
+        color: #475569;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .panels-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .panel {
+        background: #0d1117;
+        border: 1px solid #1e2a38;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid #1e2a38;
+        background: #080c10;
+    }
+
+    .panel-title {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: #64748b;
+        text-transform: uppercase;
+    }
+
+    .panel-count {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        color: #334155;
+        background: #0d1117;
+        border: 1px solid #1e2a38;
+        padding: 2px 8px;
+        border-radius: 4px;
+    }
+
+    .event-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    .event-table th {
+        padding: 8px 12px;
+        text-align: left;
+        font-size: 10px;
+        font-weight: 600;
+        color: #334155;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-bottom: 1px solid #1e2a38;
+        font-family: 'JetBrains Mono', monospace;
+        background: #080c10;
+    }
+
+    .event-table td {
+        padding: 7px 12px;
+        border-bottom: 1px solid #0f1923;
+        vertical-align: middle;
+        color: #94a3b8;
+    }
+
+    .event-table tr:hover td { background: #0f1923; }
+
+    .table-wrap {
+        max-height: 380px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #1e2a38 transparent;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+    .badge {
+        display: inline-block;
+        padding: 2px 7px;
+        border-radius: 3px;
+        font-size: 10px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    .badge-critical { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+    .badge-warning  { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .badge-info     { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .badge-success  { background: rgba(34,197,94,0.15);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .badge-mfr      { background: #0f1923; color: #475569; border: 1px solid #1e2a38; }
+    .badge-vms      { background: rgba(139,92,246,0.12); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+    .badge-email    { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .badge-im       { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .badge-web      { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+
+    .check-ok  { color: #22c55e; font-size: 13px; }
+    .check-err { color: #ef4444; font-size: 13px; }
+
+    .pipeline-flow {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 20px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        color: #334155;
+    }
+
+    .flow-step {
+        padding: 4px 10px;
+        border: 1px solid #1e2a38;
+        border-radius: 4px;
+        color: #475569;
+        background: #0d1117;
+    }
+
+    .flow-step.active { border-color: #ef4444; color: #f87171; background: rgba(239,68,68,0.08); }
+    .flow-arrow { color: #1e2a38; }
+</style>
+
+<div class="ifa-root">
+
+    <!-- HEADER -->
+    <div class="ifa-header">
+        <div class="ifa-logo">
+            <div class="ifa-logo-dot"></div>
+            <div>
+                <div class="ifa-title">IFA Simulator</div>
+                <div class="ifa-subtitle">Intrusion Fire Agent — HyperIT</div>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <div class="ifa-status-bar">
+                <span class="status-pill @GetStatusClass()">@State.Status</span>
+                @if (State.StartedAt.HasValue)
+                {
+                    <span>desde @State.StartedAt.Value.ToString("HH:mm:ss")</span>
+                }
+            </div>
+            @if (State.Status == SimulatorStatus.Running)
+            {
+                <button class="ifa-btn btn-stop" @onclick="StopSimulator">⏹ Detener</button>
+            }
+            else
+            {
+                <button class="ifa-btn btn-start" @onclick="StartSimulator">▶ Iniciar</button>
+            }
+            <button class="ifa-btn btn-reset" @onclick="RestartSimulator">↺ Reiniciar</button>
+        </div>
+    </div>
+
+    <!-- PIPELINE FLOW -->
+    <div class="pipeline-flow">
+        <span class="flow-step @(State.Status == SimulatorStatus.Running ? "active" : "")">LISTENER</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step @(State.Status == SimulatorStatus.Running ? "active" : "")">PHASER</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step @(State.Status == SimulatorStatus.Running ? "active" : "")">RULES ENGINE</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step @(State.Status == SimulatorStatus.Running ? "active" : "")">DISPATCHER</span>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid">
+        <div class="kpi-card kpi-total">
+            <div class="kpi-value">@State.TotalEvents</div>
+            <div class="kpi-label">Total Eventos</div>
+        </div>
+        <div class="kpi-card kpi-critical">
+            <div class="kpi-value">@State.CriticalCount</div>
+            <div class="kpi-label">Críticos</div>
+        </div>
+        <div class="kpi-card kpi-warning">
+            <div class="kpi-value">@State.WarningCount</div>
+            <div class="kpi-label">Advertencias</div>
+        </div>
+        <div class="kpi-card kpi-dispatch">
+            <div class="kpi-value">@State.DispatchedCount</div>
+            <div class="kpi-label">Despachadas</div>
+        </div>
+    </div>
+
+    <!-- PANELS -->
+    <div class="panels-grid">
+
+        <!-- EVENTOS -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Eventos en tiempo real</span>
+                <span class="panel-count">@State.RecentEvents.Count</span>
+            </div>
+            <div class="table-wrap">
+                <table class="event-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Fabricante</th>
+                            <th>Zona</th>
+                            <th>Severidad</th>
+                            <th>Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ev in State.RecentEvents)
+                        {
+                            <tr>
+                                <td><span class="mono" style="color:#475569;">@ev.EventId</span></td>
+                                <td><span style="color:#cbd5e1;">@ev.Type</span></td>
+                                <td><span class="badge badge-mfr">@ev.Manufacturer</span></td>
+                                <td><span style="color:#64748b; font-size:11px;">@ev.Zone</span></td>
+                                <td><span class="badge @GetSeverityBadge(ev.Severity)">@ev.SeverityLabel</span></td>
+                                <td><span class="mono" style="color:#334155;">@ev.OccurredAt.ToString("HH:mm:ss")</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DISPATCHER LOG -->
+        <div class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Log Dispatcher</span>
+                <span class="panel-count">@State.RecentLogs.Count</span>
+            </div>
+            <div class="table-wrap">
+                <table class="event-table">
+                    <thead>
+                        <tr>
+                            <th>Canal</th>
+                            <th>Resumen</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in State.RecentLogs)
+                        {
+                            <tr>
+                                <td><span class="badge @GetChannelBadge(log.Target)">@log.Target</span></td>
+                                <td><span style="font-size:11px; color:#475569;">@(log.Summary.Length > 45 ? log.Summary[..45] + "…" : log.Summary)</span></td>
+                                <td>
+                                    @if (log.Success)
+                                    {
+                                        <span class="check-ok">✓</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="check-err">✗</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    private SimulatorState State => DashboardSvc.State;
+
+    protected override void OnInitialized()
+    {
+        DashboardSvc.OnStateChanged += OnPipelineStateChanged;
+    }
+
+    private void OnPipelineStateChanged() => InvokeAsync(StateHasChanged);
+
+    private async Task StartSimulator()   => await DashboardSvc.StartAsync();
+    private void StopSimulator()          => DashboardSvc.Stop();
+    private async Task RestartSimulator() => await DashboardSvc.RestartAsync();
+
+    private string GetStatusClass() => State.Status switch
+    {
+        SimulatorStatus.Running => "status-running",
+        SimulatorStatus.Stopped => "status-stopped",
+        _                       => "status-idle"
+    };
+
+    private static string GetSeverityBadge(CoreSeverity s) => s switch
+    {
+        CoreSeverity.Critical => "badge-critical",
+        CoreSeverity.Warning  => "badge-warning",
+        _                     => "badge-info"
+    };
+
+    private static string GetChannelBadge(ActionTarget t) => t switch
+    {
+        ActionTarget.VMS            => "badge-vms",
+        ActionTarget.Email          => "badge-email",
+        ActionTarget.InstantMessage => "badge-im",
+        _                           => "badge-web"
+    };
+
+    public void Dispose()
+    {
+        DashboardSvc.OnStateChanged -= OnPipelineStateChanged;
+    }
+}

@@ -1,0 +1,373 @@
+﻿# =============================================================================
+# .NET Release Pipeline — GitHub Actions
+# =============================================================================
+# Stages:
+#   1. Publish        → dotnet publish (Release mode)
+#   2. Obfuscate      → SmartAssembly CLI
+#   3. Clean & Add    → Remove merged files, inject extra dependencies
+#   4. Prepare Folder → Merge published + obfuscated into final release folder
+#   5. Create Installer → Inno Setup (ISCC)
+#   6. Publish Release  → GitHub Releases upload
+# =============================================================================
+
+name: Release Pipeline
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"   # Triggers on tags like v1.0.0, v2.3.1
+
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g. v1.0.0)"
+        required: true
+        default: "v1.0.0"
+      installer_name_mode:
+        description: "Installer name mode"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto      # AppName + Version combined automatically
+          - manual    # Uses MANUAL_INSTALLER_NAME secret / env var
+      manual_installer_name:
+        description: "Manual installer filename (only used when mode=manual)"
+        required: false
+        default: ""
+
+# ---------------------------------------------------------------------------
+# Global environment — edit these to match your project
+# ---------------------------------------------------------------------------
+env:
+  APP_NAME:          "HIS2026"
+  DOTNET_VERSION:    "8.0.x"
+  PROJECT_PATH:      "src/HIS2026/HIS2026.csproj"      # Relative to repo root
+  SOLUTION_PATH:     "HIS2026.sln"                      # Optional, used by restore
+  PUBLISH_DIR:       "${{ github.workspace }}/artifacts/publish"
+  OBFUSCATED_DIR:    "${{ github.workspace }}/artifacts/obfuscated"
+  RELEASE_DIR:       "${{ github.workspace }}/artifacts/release"
+  INSTALLER_OUT_DIR: "${{ github.workspace }}/artifacts/installer"
+  EXTRAS_DIR:        "${{ github.workspace }}/extras"   # Runtimes, DLLs, configs, etc.
+  ISS_SCRIPT:        "installer/setup.iss"
+
+  # SmartAssembly — adjust path if installed elsewhere on the runner
+  SA_CLI: "C:\\Program Files\\Red Gate\\SmartAssembly 8\\SmartAssembly.com"
+
+  # Inno Setup — adjust path if installed elsewhere on the runner
+  ISCC_PATH: "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe"
+
+jobs:
+  # ===========================================================================
+  # Job 1 — Build & Publish
+  # ===========================================================================
+  publish:
+    name: "1 · Publish .NET Application"
+    runs-on: windows-latest               # Windows required for SA + ISCC
+
+    outputs:
+      version:        ${{ steps.resolve_version.outputs.version }}
+      installer_name: ${{ steps.resolve_installer_name.outputs.installer_name }}
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                  # Full history for tagging
+
+      # -----------------------------------------------------------------------
+      - name: Resolve version string
+        id: resolve_version
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "push") {
+            $version = "${{ github.ref_name }}"
+          } else {
+            $version = "${{ github.event.inputs.version }}"
+          }
+          # Ensure it starts with 'v'
+          if (-not $version.StartsWith("v")) { $version = "v$version" }
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Resolved version: $version"
+
+      # -----------------------------------------------------------------------
+      - name: Resolve installer filename
+        id: resolve_installer_name
+        shell: pwsh
+        run: |
+          $mode    = "${{ github.event.inputs.installer_name_mode }}"
+          $version = "${{ steps.resolve_version.outputs.version }}"
+          $appName = "${{ env.APP_NAME }}"
+
+          if ($mode -eq "manual" -and "${{ github.event.inputs.manual_installer_name }}" -ne "") {
+            $name = "${{ github.event.inputs.manual_installer_name }}"
+          } else {
+            # Auto-mode: AppName + Version  (e.g. HIS2026_v1.0.0)
+            $name = "${appName}_${version}"
+          }
+          echo "installer_name=$name" >> $env:GITHUB_OUTPUT
+          Write-Host "Installer filename: $name"
+
+      # -----------------------------------------------------------------------
+      - name: Setup .NET SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # -----------------------------------------------------------------------
+      - name: Restore NuGet packages
+        shell: pwsh
+        run: dotnet restore "${{ env.SOLUTION_PATH }}"
+
+      # -----------------------------------------------------------------------
+      - name: Publish application (Release mode)
+        shell: pwsh
+        run: |
+          dotnet publish "${{ env.PROJECT_PATH }}" `
+            --configuration Release `
+            --output "${{ env.PUBLISH_DIR }}" `
+            --self-contained false `
+            --no-restore `
+            -p:PublishSingleFile=false `
+            -p:AssemblyVersion="${{ steps.resolve_version.outputs.version }}" `
+            -p:FileVersion="${{ steps.resolve_version.outputs.version }}"
+
+      # -----------------------------------------------------------------------
+      - name: Upload published artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-files
+          path: ${{ env.PUBLISH_DIR }}
+          retention-days: 1
+
+  # ===========================================================================
+  # Job 2 — Obfuscate
+  # ===========================================================================
+  obfuscate:
+    name: "2 · Obfuscate with SmartAssembly"
+    runs-on: windows-latest
+    needs: publish
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      - name: Download published artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: published-files
+          path: ${{ env.PUBLISH_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Run SmartAssembly obfuscation
+        shell: pwsh
+        run: |
+          $saProject = "${{ github.workspace }}\installer\HIS2026.saproj"
+          $publishDir = "${{ env.PUBLISH_DIR }}"
+          $obfDir     = "${{ env.OBFUSCATED_DIR }}"
+
+          New-Item -ItemType Directory -Force -Path $obfDir | Out-Null
+
+          # SmartAssembly CLI: build the .saproj and output to OBFUSCATED_DIR
+          & "${{ env.SA_CLI }}" /build "$saProject" `
+              /outputFolder "$obfDir" `
+              /inputFolder  "$publishDir"
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "SmartAssembly failed with exit code $LASTEXITCODE"
+            exit $LASTEXITCODE
+          }
+          Write-Host "Obfuscation completed. Output: $obfDir"
+
+      # -----------------------------------------------------------------------
+      - name: Upload obfuscated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: obfuscated-files
+          path: ${{ env.OBFUSCATED_DIR }}
+          retention-days: 1
+
+  # ===========================================================================
+  # Job 3 — Clean merged files + inject extras
+  # ===========================================================================
+  clean-and-add:
+    name: "3 · Remove Merged Files & Add Dependencies"
+    runs-on: windows-latest
+    needs: obfuscate
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      - name: Download obfuscated artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: obfuscated-files
+          path: ${{ env.OBFUSCATED_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Remove merged / unnecessary files
+        shell: pwsh
+        run: |
+          & "${{ github.workspace }}\scripts\Remove-MergedFiles.ps1" `
+              -TargetDir "${{ env.OBFUSCATED_DIR }}"
+
+      # -----------------------------------------------------------------------
+      - name: Copy additional dependencies
+        shell: pwsh
+        run: |
+          & "${{ github.workspace }}\scripts\Copy-Dependencies.ps1" `
+              -SourceDir "${{ env.EXTRAS_DIR }}" `
+              -TargetDir "${{ env.OBFUSCATED_DIR }}"
+
+      # -----------------------------------------------------------------------
+      - name: Upload cleaned + enriched artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: enriched-files
+          path: ${{ env.OBFUSCATED_DIR }}
+          retention-days: 1
+
+  # ===========================================================================
+  # Job 4 — Prepare Release Folder
+  # ===========================================================================
+  prepare-release:
+    name: "4 · Prepare Release Folder"
+    runs-on: windows-latest
+    needs: [publish, clean-and-add]
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      - name: Download published files (base layer)
+        uses: actions/download-artifact@v4
+        with:
+          name: published-files
+          path: ${{ env.PUBLISH_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Download enriched obfuscated files (top layer)
+        uses: actions/download-artifact@v4
+        with:
+          name: enriched-files
+          path: ${{ env.OBFUSCATED_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Assemble release folder
+        shell: pwsh
+        run: |
+          & "${{ github.workspace }}\scripts\Prepare-ReleaseFolder.ps1" `
+              -PublishDir    "${{ env.PUBLISH_DIR }}" `
+              -ObfuscatedDir "${{ env.OBFUSCATED_DIR }}" `
+              -ReleaseDir    "${{ env.RELEASE_DIR }}"
+
+      # -----------------------------------------------------------------------
+      - name: Upload release folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-folder
+          path: ${{ env.RELEASE_DIR }}
+          retention-days: 1
+
+  # ===========================================================================
+  # Job 5 — Create Installer (Inno Setup)
+  # ===========================================================================
+  create-installer:
+    name: "5 · Create Installer with Inno Setup"
+    runs-on: windows-latest
+    needs: [publish, prepare-release]
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      - name: Download release folder
+        uses: actions/download-artifact@v4
+        with:
+          name: release-folder
+          path: ${{ env.RELEASE_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Install Inno Setup 6
+        shell: pwsh
+        run: |
+          $installer = "$env:TEMP\innosetup.exe"
+          Invoke-WebRequest "https://jrsoftware.org/download.php/is.exe" -OutFile $installer
+          Start-Process -FilePath $installer -ArgumentList "/VERYSILENT /SUPPRESSMSGBOXES /NORESTART" -Wait
+          Write-Host "Inno Setup installed."
+
+      # -----------------------------------------------------------------------
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          $version       = "${{ needs.publish.outputs.version }}"
+          $installerName = "${{ needs.publish.outputs.installer_name }}"
+          $releaseDir    = "${{ env.RELEASE_DIR }}"
+          $outDir        = "${{ env.INSTALLER_OUT_DIR }}"
+          $appName       = "${{ env.APP_NAME }}"
+          $issScript     = "${{ github.workspace }}\${{ env.ISS_SCRIPT }}"
+
+          New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+
+          & "${{ env.ISCC_PATH }}" `
+              "/DAppName=$appName" `
+              "/DVersion=$version" `
+              "/DSourceDir=$releaseDir" `
+              "/DOutputDir=$outDir" `
+              "/DOutputBaseFilename=$installerName" `
+              "$issScript"
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Inno Setup compilation failed (exit $LASTEXITCODE)"
+            exit $LASTEXITCODE
+          }
+          Write-Host "Installer created: $outDir\$installerName.exe"
+
+      # -----------------------------------------------------------------------
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: ${{ env.INSTALLER_OUT_DIR }}/*.exe
+          retention-days: 7
+
+  # ===========================================================================
+  # Job 6 — Publish to GitHub Releases
+  # ===========================================================================
+  publish-release:
+    name: "6 · Publish to GitHub Releases"
+    runs-on: windows-latest
+    needs: [publish, create-installer]
+    permissions:
+      contents: write
+
+    steps:
+      # -----------------------------------------------------------------------
+      - name: Download installer
+        uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: ${{ env.INSTALLER_OUT_DIR }}
+
+      # -----------------------------------------------------------------------
+      - name: Create GitHub Release and upload installer
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.publish.outputs.version }}
+          name:     "${{ env.APP_NAME }} ${{ needs.publish.outputs.version }}"
+          draft:    false
+          prerelease: false
+          generate_release_notes: true
+          files: ${{ env.INSTALLER_OUT_DIR }}/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

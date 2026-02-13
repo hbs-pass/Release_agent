@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+    <RootNamespace>IFA.Simulator.Web</RootNamespace>
+    <AssemblyName>IFA.Simulator.Web</AssemblyName>
+    <Version>1.0.0</Version>
+    <Authors>HyperIT</Authors>
+    <Description>IFA Simulator - Blazor Server Dashboard</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IFA.Simulator.Core\IFA.Simulator.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      En net10.0 con SDK Web, los siguientes ya estan incluidos, NO referenciar:
+        Microsoft.AspNetCore.Components.Server  (incluido en Microsoft.NET.Sdk.Web)
+        Microsoft.Extensions.Diagnostics.HealthChecks (incluido en el framework)
+    -->
+    <PackageReference Include="Serilog.AspNetCore"    Version="8.0.3" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File"    Version="6.0.0" />
+    <PackageReference Include="MudBlazor"             Version="8.3.0" />
+  </ItemGroup>
+
+</Project>

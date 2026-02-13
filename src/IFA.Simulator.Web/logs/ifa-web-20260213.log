@@ -1,0 +1,277 @@
+2026-02-13 11:04:39.482 -04:00 [INF] User profile is available. Using 'C:\Users\ealvarez\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-02-13 11:04:39.560 -04:00 [INF] RulesEngine inicializado con 5 reglas
+2026-02-13 11:04:39.569 -04:00 [INF] Dispatcher inicializado con 4 canal(es): WebClient, VMS, Email, InstantMessage
+2026-02-13 11:04:39.574 -04:00 [INF] Dashboard: iniciando pipeline IFA
+2026-02-13 11:04:39.576 -04:00 [INF] IFA Pipeline iniciado. Listeners: 3
+2026-02-13 11:04:39.578 -04:00 [INF] Iniciando listener para DMP
+2026-02-13 11:04:39.584 -04:00 [INF] [PHASER:DMP] 1C9591BC — "Intrusion" | "Critical" | Área 1 / Zona 01
+2026-02-13 11:04:39.588 -04:00 [INF] Iniciando listener para AXIS
+2026-02-13 11:04:39.590 -04:00 [INF] [PHASER:AXIS] 7F498CE5 — "Fire" | "Critical" | Zona A1
+2026-02-13 11:04:39.591 -04:00 [INF] Iniciando listener para HANWHA
+2026-02-13 11:04:39.593 -04:00 [INF] [PHASER:HANWHA] 3753B682 — "Intrusion" | "Warning" | Canal 1
+2026-02-13 11:04:39.600 -04:00 [INF] Evento 1C9591BC → 3 acción(es) generadas
+2026-02-13 11:04:39.603 -04:00 [INF] [VMS] Comando → EventId: 1C9591BC | OPEN_CAM|zone=Área 1 / Zona 01|event=Intrusion|device=DMP-373
+2026-02-13 11:04:39.604 -04:00 [INF] [EMAIL] Enviado → EventId: 1C9591BC
+2026-02-13 11:04:39.605 -04:00 [INF] [WEB CLIENT] POST → EventId: 1C9591BC | {"id":"1C9591BC","type":"Intrusion","zone":"Área 1 / Zona 01","severity":"CRITICAL","ts":"2026-02-13T11:04:39.5800654-04:00"}
+2026-02-13 11:04:39.607 -04:00 [INF] Evento 7F498CE5 → 4 acción(es) generadas
+2026-02-13 11:04:39.608 -04:00 [INF] [VMS] Comando → EventId: 7F498CE5 | OPEN_CAM|zone=Zona A1|event=Fire|device=AXIS-701
+2026-02-13 11:04:39.609 -04:00 [INF] [EMAIL] Enviado → EventId: 7F498CE5
+2026-02-13 11:04:39.610 -04:00 [INF] [WEB CLIENT] POST → EventId: 7F498CE5 | {"id":"7F498CE5","type":"Fire","zone":"Zona A1","severity":"CRITICAL","ts":"2026-02-13T11:04:39.5901750-04:00"}
+2026-02-13 11:04:39.610 -04:00 [INF] [IM] Mensaje → EventId: 7F498CE5 | 🔥 FUEGO — Zona A1 | AXIS-701 | 11:04:39 | Conf. VMS abierto
+2026-02-13 11:04:39.612 -04:00 [INF] Evento 3753B682 → 1 acción(es) generadas
+2026-02-13 11:04:39.613 -04:00 [INF] [WEB CLIENT] POST → EventId: 3753B682 | {"id":"3753B682","type":"Intrusion","zone":"Canal 1","severity":"WARNING","ts":"2026-02-13T11:04:39.5933318-04:00"}
+2026-02-13 11:04:39.894 -04:00 [INF] Now listening on: http://localhost:5000
+2026-02-13 11:04:39.896 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-13 11:04:39.897 -04:00 [INF] Hosting environment: Production
+2026-02-13 11:04:39.897 -04:00 [INF] Content root path: C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Web
+2026-02-13 11:04:43.403 -04:00 [INF] [PHASER:DMP] 323F04A3 — "Fire" | "Critical" | Área 1 / Zona 02
+2026-02-13 11:04:43.405 -04:00 [INF] Evento 323F04A3 → 4 acción(es) generadas
+2026-02-13 11:04:43.406 -04:00 [INF] [VMS] Comando → EventId: 323F04A3 | OPEN_CAM|zone=Área 1 / Zona 02|event=Fire|device=DMP-281
+2026-02-13 11:04:43.407 -04:00 [INF] [EMAIL] Enviado → EventId: 323F04A3
+2026-02-13 11:04:43.408 -04:00 [INF] [WEB CLIENT] POST → EventId: 323F04A3 | {"id":"323F04A3","type":"Fire","zone":"Área 1 / Zona 02","severity":"CRITICAL","ts":"2026-02-13T11:04:43.4028498-04:00"}
+2026-02-13 11:04:43.408 -04:00 [INF] [IM] Mensaje → EventId: 323F04A3 | 🔥 FUEGO — Área 1 / Zona 02 | DMP-281 | 11:04:43 | Conf. VMS abierto
+2026-02-13 11:04:43.803 -04:00 [INF] [PHASER:AXIS] 4E94E744 — "Tamper" | "Warning" | Zona B2
+2026-02-13 11:04:43.805 -04:00 [INF] Evento 4E94E744 → 1 acción(es) generadas
+2026-02-13 11:04:43.806 -04:00 [INF] [WEB CLIENT] POST → EventId: 4E94E744 | {"id":"4E94E744","type":"Tamper","zone":"Zona B2","severity":"WARNING","ts":"2026-02-13T11:04:43.8033075-04:00"}
+2026-02-13 11:04:44.102 -04:00 [INF] [PHASER:HANWHA] A40E321B — "Fire" | "Critical" | Canal 3
+2026-02-13 11:04:44.105 -04:00 [INF] Evento A40E321B → 4 acción(es) generadas
+2026-02-13 11:04:44.106 -04:00 [INF] [VMS] Comando → EventId: A40E321B | OPEN_CAM|zone=Canal 3|event=Fire|device=HNW-922
+2026-02-13 11:04:44.107 -04:00 [INF] [EMAIL] Enviado → EventId: A40E321B
+2026-02-13 11:04:44.107 -04:00 [INF] [WEB CLIENT] POST → EventId: A40E321B | {"id":"A40E321B","type":"Fire","zone":"Canal 3","severity":"CRITICAL","ts":"2026-02-13T11:04:44.1025295-04:00"}
+2026-02-13 11:04:44.108 -04:00 [INF] [IM] Mensaje → EventId: A40E321B | 🔥 FUEGO — Canal 3 | HNW-922 | 11:04:44 | Conf. VMS abierto
+2026-02-13 11:04:47.207 -04:00 [INF] [PHASER:DMP] 62FE0D0D — "LowBattery" | "Warning" | Área 1 / Zona 03
+2026-02-13 11:04:47.208 -04:00 [INF] Evento 62FE0D0D → 1 acción(es) generadas
+2026-02-13 11:04:47.209 -04:00 [INF] [WEB CLIENT] POST → EventId: 62FE0D0D | {"id":"62FE0D0D","type":"LowBattery","zone":"Área 1 / Zona 03","severity":"WARNING","ts":"2026-02-13T11:04:47.2067992-04:00"}
+2026-02-13 11:04:48.021 -04:00 [INF] [PHASER:AXIS] 03F712DB — "Intrusion" | "Critical" | Zona C1
+2026-02-13 11:04:48.022 -04:00 [INF] Evento 03F712DB → 3 acción(es) generadas
+2026-02-13 11:04:48.024 -04:00 [INF] [VMS] Comando → EventId: 03F712DB | OPEN_CAM|zone=Zona C1|event=Intrusion|device=AXIS-828
+2026-02-13 11:04:48.025 -04:00 [INF] [EMAIL] Enviado → EventId: 03F712DB
+2026-02-13 11:04:48.025 -04:00 [INF] [WEB CLIENT] POST → EventId: 03F712DB | {"id":"03F712DB","type":"Intrusion","zone":"Zona C1","severity":"CRITICAL","ts":"2026-02-13T11:04:48.0208328-04:00"}
+2026-02-13 11:04:48.608 -04:00 [INF] [PHASER:HANWHA] B9F23C0D — "Intrusion" | "Warning" | Canal 2
+2026-02-13 11:04:48.610 -04:00 [INF] Evento B9F23C0D → 1 acción(es) generadas
+2026-02-13 11:04:48.611 -04:00 [INF] [WEB CLIENT] POST → EventId: B9F23C0D | {"id":"B9F23C0D","type":"Intrusion","zone":"Canal 2","severity":"WARNING","ts":"2026-02-13T11:04:48.6086080-04:00"}
+2026-02-13 11:04:51.014 -04:00 [INF] [PHASER:DMP] DD551E2A — "Panic" | "Critical" | Área 2 / Zona 04
+2026-02-13 11:04:51.018 -04:00 [INF] Evento DD551E2A → 4 acción(es) generadas
+2026-02-13 11:04:51.019 -04:00 [INF] [VMS] Comando → EventId: DD551E2A | OPEN_CAM|zone=Área 2 / Zona 04|event=Panic|device=DMP-498
+2026-02-13 11:04:51.020 -04:00 [INF] [EMAIL] Enviado → EventId: DD551E2A
+2026-02-13 11:04:51.021 -04:00 [INF] [WEB CLIENT] POST → EventId: DD551E2A | {"id":"DD551E2A","type":"Panic","zone":"Área 2 / Zona 04","severity":"CRITICAL","ts":"2026-02-13T11:04:51.0146612-04:00"}
+2026-02-13 11:04:51.022 -04:00 [INF] [IM] Mensaje → EventId: DD551E2A | 🆘 PÁNICO — Área 2 / Zona 04 | DMP-498 | 11:04:51
+2026-02-13 11:04:52.233 -04:00 [INF] [PHASER:AXIS] 963F094B — "Medical" | "Critical" | Zona A3
+2026-02-13 11:04:52.235 -04:00 [INF] Evento 963F094B → 3 acción(es) generadas
+2026-02-13 11:04:52.236 -04:00 [INF] [VMS] Comando → EventId: 963F094B | OPEN_CAM|zone=Zona A3|event=Medical|device=AXIS-940
+2026-02-13 11:04:52.237 -04:00 [INF] [EMAIL] Enviado → EventId: 963F094B
+2026-02-13 11:04:52.238 -04:00 [INF] [WEB CLIENT] POST → EventId: 963F094B | {"id":"963F094B","type":"Medical","zone":"Zona A3","severity":"CRITICAL","ts":"2026-02-13T11:04:52.2330157-04:00"}
+2026-02-13 11:04:54.831 -04:00 [INF] [PHASER:DMP] A05222DB — "ZoneRestore" | "Info" | Área 1 / Zona 01
+2026-02-13 11:04:54.834 -04:00 [INF] Evento A05222DB → 1 acción(es) generadas
+2026-02-13 11:04:54.835 -04:00 [INF] [WEB CLIENT] POST → EventId: A05222DB | {"id":"A05222DB","type":"RESTORE","zone":"Área 1 / Zona 01","ts":"2026-02-13T11:04:54.8308584-04:00"}
+2026-02-13 11:04:58.292 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2026-02-13 11:04:58.310 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-02-13 11:04:58.312 -04:00 [INF] Executing endpoint '/ (/)'
+2026-02-13 11:04:58.611 -04:00 [INF] Executed endpoint '/ (/)'
+2026-02-13 11:04:58.622 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 330.9479ms
+2026-02-13 11:04:58.635 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.css - null null
+2026-02-13 11:04:58.635 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/css/app.css - null null
+2026-02-13 11:04:58.635 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - null null
+2026-02-13 11:04:58.636 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.js - null null
+2026-02-13 11:04:58.641 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.css - 404 0 null 5.7694ms
+2026-02-13 11:04:58.643 -04:00 [INF] [PHASER:DMP] 9CB47899 — "AcPowerLoss" | "Warning" | Área 3 / Zona 05
+2026-02-13 11:04:58.644 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - 404 0 null 8.2437ms
+2026-02-13 11:04:58.646 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.js - 404 0 null 9.9849ms
+2026-02-13 11:04:58.650 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.css, Response status code: 404
+2026-02-13 11:04:58.651 -04:00 [INF] Sending file. Request path: '/css/app.css'. Physical path: 'C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Web\wwwroot\css\app.css'
+2026-02-13 11:04:58.651 -04:00 [INF] Evento 9CB47899 → 1 acción(es) generadas
+2026-02-13 11:04:58.654 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_framework/blazor.server.js, Response status code: 404
+2026-02-13 11:04:58.656 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_content/MudBlazor/MudBlazor.min.js, Response status code: 404
+2026-02-13 11:04:58.659 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/css/app.css - 200 1442 text/css 23.6486ms
+2026-02-13 11:04:58.660 -04:00 [INF] [WEB CLIENT] POST → EventId: 9CB47899 | {"id":"9CB47899","type":"AcPowerLoss","zone":"Área 3 / Zona 05","severity":"WARNING","ts":"2026-02-13T11:04:58.6432910-04:00"}
+2026-02-13 11:04:59.507 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/favicon.ico - null null
+2026-02-13 11:04:59.510 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/favicon.ico - 404 0 null 3.6506ms
+2026-02-13 11:04:59.513 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/favicon.ico, Response status code: 404
+2026-02-13 11:05:02.472 -04:00 [INF] [PHASER:DMP] 661ACDA0 — "ZoneRestore" | "Info" | Área 1 / Zona 02
+2026-02-13 11:05:02.474 -04:00 [INF] Evento 661ACDA0 → 1 acción(es) generadas
+2026-02-13 11:05:02.475 -04:00 [INF] [WEB CLIENT] POST → EventId: 661ACDA0 | {"id":"661ACDA0","type":"RESTORE","zone":"Área 1 / Zona 02","ts":"2026-02-13T11:05:02.4718179-04:00"}
+2026-02-13 11:05:06.291 -04:00 [INF] IFA Pipeline completado. Total eventos: 14
+2026-02-13 11:05:17.865 -04:00 [INF] Application is shutting down...
+2026-02-13 11:08:07.013 -04:00 [INF] User profile is available. Using 'C:\Users\ealvarez\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-02-13 11:08:07.052 -04:00 [INF] RulesEngine inicializado con 5 reglas
+2026-02-13 11:08:07.061 -04:00 [INF] Dispatcher inicializado con 4 canal(es): WebClient, VMS, Email, InstantMessage
+2026-02-13 11:08:07.065 -04:00 [INF] Dashboard: iniciando pipeline IFA
+2026-02-13 11:08:07.066 -04:00 [INF] IFA Pipeline iniciado. Listeners: 3
+2026-02-13 11:08:07.068 -04:00 [INF] Iniciando listener para DMP
+2026-02-13 11:08:07.075 -04:00 [INF] [PHASER:DMP] 66C2E929 — "Intrusion" | "Critical" | Área 1 / Zona 01
+2026-02-13 11:08:07.078 -04:00 [INF] Iniciando listener para AXIS
+2026-02-13 11:08:07.080 -04:00 [INF] [PHASER:AXIS] 3A16C445 — "Fire" | "Critical" | Zona A1
+2026-02-13 11:08:07.082 -04:00 [INF] Iniciando listener para HANWHA
+2026-02-13 11:08:07.084 -04:00 [INF] [PHASER:HANWHA] 6B3D2FD2 — "Intrusion" | "Warning" | Canal 1
+2026-02-13 11:08:07.091 -04:00 [INF] Evento 66C2E929 → 3 acción(es) generadas
+2026-02-13 11:08:07.094 -04:00 [INF] [VMS] Comando → EventId: 66C2E929 | OPEN_CAM|zone=Área 1 / Zona 01|event=Intrusion|device=DMP-524
+2026-02-13 11:08:07.095 -04:00 [INF] [EMAIL] Enviado → EventId: 66C2E929
+2026-02-13 11:08:07.096 -04:00 [INF] [WEB CLIENT] POST → EventId: 66C2E929 | {"id":"66C2E929","type":"Intrusion","zone":"Área 1 / Zona 01","severity":"CRITICAL","ts":"2026-02-13T11:08:07.0705988-04:00"}
+2026-02-13 11:08:07.098 -04:00 [INF] Evento 3A16C445 → 4 acción(es) generadas
+2026-02-13 11:08:07.099 -04:00 [INF] [VMS] Comando → EventId: 3A16C445 | OPEN_CAM|zone=Zona A1|event=Fire|device=AXIS-751
+2026-02-13 11:08:07.100 -04:00 [INF] [EMAIL] Enviado → EventId: 3A16C445
+2026-02-13 11:08:07.100 -04:00 [INF] [WEB CLIENT] POST → EventId: 3A16C445 | {"id":"3A16C445","type":"Fire","zone":"Zona A1","severity":"CRITICAL","ts":"2026-02-13T11:08:07.0805279-04:00"}
+2026-02-13 11:08:07.101 -04:00 [INF] [IM] Mensaje → EventId: 3A16C445 | 🔥 FUEGO — Zona A1 | AXIS-751 | 11:08:07 | Conf. VMS abierto
+2026-02-13 11:08:07.103 -04:00 [INF] Evento 6B3D2FD2 → 1 acción(es) generadas
+2026-02-13 11:08:07.103 -04:00 [INF] [WEB CLIENT] POST → EventId: 6B3D2FD2 | {"id":"6B3D2FD2","type":"Intrusion","zone":"Canal 1","severity":"WARNING","ts":"2026-02-13T11:08:07.0839002-04:00"}
+2026-02-13 11:08:07.225 -04:00 [INF] Now listening on: http://localhost:5000
+2026-02-13 11:08:07.226 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-13 11:08:07.227 -04:00 [INF] Hosting environment: Production
+2026-02-13 11:08:07.227 -04:00 [INF] Content root path: C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Web
+2026-02-13 11:08:10.891 -04:00 [INF] [PHASER:DMP] 792F6371 — "Fire" | "Critical" | Área 1 / Zona 02
+2026-02-13 11:08:10.893 -04:00 [INF] Evento 792F6371 → 4 acción(es) generadas
+2026-02-13 11:08:10.895 -04:00 [INF] [VMS] Comando → EventId: 792F6371 | OPEN_CAM|zone=Área 1 / Zona 02|event=Fire|device=DMP-100
+2026-02-13 11:08:10.896 -04:00 [INF] [EMAIL] Enviado → EventId: 792F6371
+2026-02-13 11:08:10.897 -04:00 [INF] [WEB CLIENT] POST → EventId: 792F6371 | {"id":"792F6371","type":"Fire","zone":"Área 1 / Zona 02","severity":"CRITICAL","ts":"2026-02-13T11:08:10.8914896-04:00"}
+2026-02-13 11:08:10.898 -04:00 [INF] [IM] Mensaje → EventId: 792F6371 | 🔥 FUEGO — Área 1 / Zona 02 | DMP-100 | 11:08:10 | Conf. VMS abierto
+2026-02-13 11:08:11.293 -04:00 [INF] [PHASER:AXIS] 694337A0 — "Tamper" | "Warning" | Zona B2
+2026-02-13 11:08:11.296 -04:00 [INF] Evento 694337A0 → 1 acción(es) generadas
+2026-02-13 11:08:11.298 -04:00 [INF] [WEB CLIENT] POST → EventId: 694337A0 | {"id":"694337A0","type":"Tamper","zone":"Zona B2","severity":"WARNING","ts":"2026-02-13T11:08:11.2933889-04:00"}
+2026-02-13 11:08:11.605 -04:00 [INF] [PHASER:HANWHA] BA3945F3 — "Fire" | "Critical" | Canal 3
+2026-02-13 11:08:11.608 -04:00 [INF] Evento BA3945F3 → 4 acción(es) generadas
+2026-02-13 11:08:11.609 -04:00 [INF] [VMS] Comando → EventId: BA3945F3 | OPEN_CAM|zone=Canal 3|event=Fire|device=HNW-977
+2026-02-13 11:08:11.610 -04:00 [INF] [EMAIL] Enviado → EventId: BA3945F3
+2026-02-13 11:08:11.611 -04:00 [INF] [WEB CLIENT] POST → EventId: BA3945F3 | {"id":"BA3945F3","type":"Fire","zone":"Canal 3","severity":"CRITICAL","ts":"2026-02-13T11:08:11.6051772-04:00"}
+2026-02-13 11:08:11.613 -04:00 [INF] [IM] Mensaje → EventId: BA3945F3 | 🔥 FUEGO — Canal 3 | HNW-977 | 11:08:11 | Conf. VMS abierto
+2026-02-13 11:08:14.712 -04:00 [INF] [PHASER:DMP] 54D39957 — "LowBattery" | "Warning" | Área 1 / Zona 03
+2026-02-13 11:08:14.715 -04:00 [INF] Evento 54D39957 → 1 acción(es) generadas
+2026-02-13 11:08:14.716 -04:00 [INF] [WEB CLIENT] POST → EventId: 54D39957 | {"id":"54D39957","type":"LowBattery","zone":"Área 1 / Zona 03","severity":"WARNING","ts":"2026-02-13T11:08:14.7125733-04:00"}
+2026-02-13 11:08:15.515 -04:00 [INF] [PHASER:AXIS] 0C8867EF — "Intrusion" | "Critical" | Zona C1
+2026-02-13 11:08:15.518 -04:00 [INF] Evento 0C8867EF → 3 acción(es) generadas
+2026-02-13 11:08:15.519 -04:00 [INF] [VMS] Comando → EventId: 0C8867EF | OPEN_CAM|zone=Zona C1|event=Intrusion|device=AXIS-907
+2026-02-13 11:08:15.520 -04:00 [INF] [EMAIL] Enviado → EventId: 0C8867EF
+2026-02-13 11:08:15.521 -04:00 [INF] [WEB CLIENT] POST → EventId: 0C8867EF | {"id":"0C8867EF","type":"Intrusion","zone":"Zona C1","severity":"CRITICAL","ts":"2026-02-13T11:08:15.5154052-04:00"}
+2026-02-13 11:08:16.114 -04:00 [INF] [PHASER:HANWHA] BE95907E — "Intrusion" | "Warning" | Canal 2
+2026-02-13 11:08:16.116 -04:00 [INF] Evento BE95907E → 1 acción(es) generadas
+2026-02-13 11:08:16.117 -04:00 [INF] [WEB CLIENT] POST → EventId: BE95907E | {"id":"BE95907E","type":"Intrusion","zone":"Canal 2","severity":"WARNING","ts":"2026-02-13T11:08:16.1141044-04:00"}
+2026-02-13 11:08:17.078 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2026-02-13 11:08:17.097 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-02-13 11:08:17.098 -04:00 [INF] Executing endpoint '/ (/)'
+2026-02-13 11:08:17.182 -04:00 [INF] Executed endpoint '/ (/)'
+2026-02-13 11:08:17.185 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 108.4696ms
+2026-02-13 11:08:17.202 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - null null
+2026-02-13 11:08:17.207 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - 404 0 null 4.6884ms
+2026-02-13 11:08:17.210 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_framework/blazor.server.js, Response status code: 404
+2026-02-13 11:08:18.535 -04:00 [INF] [PHASER:DMP] F70BBF69 — "Panic" | "Critical" | Área 2 / Zona 04
+2026-02-13 11:08:18.538 -04:00 [INF] Evento F70BBF69 → 4 acción(es) generadas
+2026-02-13 11:08:18.539 -04:00 [INF] [VMS] Comando → EventId: F70BBF69 | OPEN_CAM|zone=Área 2 / Zona 04|event=Panic|device=DMP-749
+2026-02-13 11:08:18.540 -04:00 [INF] [EMAIL] Enviado → EventId: F70BBF69
+2026-02-13 11:08:18.541 -04:00 [INF] [WEB CLIENT] POST → EventId: F70BBF69 | {"id":"F70BBF69","type":"Panic","zone":"Área 2 / Zona 04","severity":"CRITICAL","ts":"2026-02-13T11:08:18.5347252-04:00"}
+2026-02-13 11:08:18.542 -04:00 [INF] [IM] Mensaje → EventId: F70BBF69 | 🆘 PÁNICO — Área 2 / Zona 04 | DMP-749 | 11:08:18
+2026-02-13 11:08:19.733 -04:00 [INF] [PHASER:AXIS] A04B261A — "Medical" | "Critical" | Zona A3
+2026-02-13 11:08:19.736 -04:00 [INF] Evento A04B261A → 3 acción(es) generadas
+2026-02-13 11:08:19.738 -04:00 [INF] [VMS] Comando → EventId: A04B261A | OPEN_CAM|zone=Zona A3|event=Medical|device=AXIS-609
+2026-02-13 11:08:19.739 -04:00 [INF] [EMAIL] Enviado → EventId: A04B261A
+2026-02-13 11:08:19.740 -04:00 [INF] [WEB CLIENT] POST → EventId: A04B261A | {"id":"A04B261A","type":"Medical","zone":"Zona A3","severity":"CRITICAL","ts":"2026-02-13T11:08:19.7338816-04:00"}
+2026-02-13 11:08:22.355 -04:00 [INF] [PHASER:DMP] 0D5D4EC0 — "ZoneRestore" | "Info" | Área 1 / Zona 01
+2026-02-13 11:08:22.358 -04:00 [INF] Evento 0D5D4EC0 → 1 acción(es) generadas
+2026-02-13 11:08:22.359 -04:00 [INF] [WEB CLIENT] POST → EventId: 0D5D4EC0 | {"id":"0D5D4EC0","type":"RESTORE","zone":"Área 1 / Zona 01","ts":"2026-02-13T11:08:22.3548092-04:00"}
+2026-02-13 11:08:26.167 -04:00 [INF] [PHASER:DMP] F710F5B7 — "AcPowerLoss" | "Warning" | Área 3 / Zona 05
+2026-02-13 11:08:26.169 -04:00 [INF] Evento F710F5B7 → 1 acción(es) generadas
+2026-02-13 11:08:26.171 -04:00 [INF] [WEB CLIENT] POST → EventId: F710F5B7 | {"id":"F710F5B7","type":"AcPowerLoss","zone":"Área 3 / Zona 05","severity":"WARNING","ts":"2026-02-13T11:08:26.1671674-04:00"}
+2026-02-13 11:08:29.983 -04:00 [INF] [PHASER:DMP] 51E8F2DB — "ZoneRestore" | "Info" | Área 1 / Zona 02
+2026-02-13 11:08:29.985 -04:00 [INF] Evento 51E8F2DB → 1 acción(es) generadas
+2026-02-13 11:08:29.987 -04:00 [INF] [WEB CLIENT] POST → EventId: 51E8F2DB | {"id":"51E8F2DB","type":"RESTORE","zone":"Área 1 / Zona 02","ts":"2026-02-13T11:08:29.9833139-04:00"}
+2026-02-13 11:08:33.800 -04:00 [INF] IFA Pipeline completado. Total eventos: 14
+2026-02-13 11:08:49.275 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-02-13 11:08:49.278 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 3.9074ms
+2026-02-13 11:08:49.282 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-02-13 11:08:55.946 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2026-02-13 11:08:55.949 -04:00 [INF] Executing endpoint '/ (/)'
+2026-02-13 11:08:55.957 -04:00 [INF] Executed endpoint '/ (/)'
+2026-02-13 11:08:55.958 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 11.8563ms
+2026-02-13 11:08:55.969 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - null null
+2026-02-13 11:08:55.972 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.server.js - 404 0 null 2.6486ms
+2026-02-13 11:08:55.974 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_framework/blazor.server.js, Response status code: 404
+2026-02-13 11:08:55.990 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-02-13 11:08:55.993 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 3.0924ms
+2026-02-13 11:08:55.997 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-02-13 11:10:12.881 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-02-13 11:10:12.884 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 3.5091ms
+2026-02-13 11:10:12.888 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-02-13 11:11:04.769 -04:00 [INF] Application is shutting down...
+2026-02-13 11:11:09.890 -04:00 [INF] User profile is available. Using 'C:\Users\ealvarez\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-02-13 11:11:09.929 -04:00 [INF] RulesEngine inicializado con 5 reglas
+2026-02-13 11:11:09.937 -04:00 [INF] Dispatcher inicializado con 4 canal(es): WebClient, VMS, Email, InstantMessage
+2026-02-13 11:11:09.941 -04:00 [INF] Dashboard: iniciando pipeline IFA
+2026-02-13 11:11:09.942 -04:00 [INF] IFA Pipeline iniciado. Listeners: 3
+2026-02-13 11:11:09.945 -04:00 [INF] Iniciando listener para DMP
+2026-02-13 11:11:09.951 -04:00 [INF] [PHASER:DMP] 8B07725D — "Intrusion" | "Critical" | Área 1 / Zona 01
+2026-02-13 11:11:09.955 -04:00 [INF] Iniciando listener para AXIS
+2026-02-13 11:11:09.957 -04:00 [INF] [PHASER:AXIS] F5EB95AE — "Fire" | "Critical" | Zona A1
+2026-02-13 11:11:09.958 -04:00 [INF] Iniciando listener para HANWHA
+2026-02-13 11:11:09.960 -04:00 [INF] [PHASER:HANWHA] 29EB1064 — "Intrusion" | "Warning" | Canal 1
+2026-02-13 11:11:09.966 -04:00 [INF] Evento 8B07725D → 3 acción(es) generadas
+2026-02-13 11:11:09.969 -04:00 [INF] [VMS] Comando → EventId: 8B07725D | OPEN_CAM|zone=Área 1 / Zona 01|event=Intrusion|device=DMP-945
+2026-02-13 11:11:09.971 -04:00 [INF] [EMAIL] Enviado → EventId: 8B07725D
+2026-02-13 11:11:09.971 -04:00 [INF] [WEB CLIENT] POST → EventId: 8B07725D | {"id":"8B07725D","type":"Intrusion","zone":"Área 1 / Zona 01","severity":"CRITICAL","ts":"2026-02-13T11:11:09.9469299-04:00"}
+2026-02-13 11:11:09.973 -04:00 [INF] Evento F5EB95AE → 4 acción(es) generadas
+2026-02-13 11:11:09.975 -04:00 [INF] [VMS] Comando → EventId: F5EB95AE | OPEN_CAM|zone=Zona A1|event=Fire|device=AXIS-478
+2026-02-13 11:11:09.975 -04:00 [INF] [EMAIL] Enviado → EventId: F5EB95AE
+2026-02-13 11:11:09.976 -04:00 [INF] [WEB CLIENT] POST → EventId: F5EB95AE | {"id":"F5EB95AE","type":"Fire","zone":"Zona A1","severity":"CRITICAL","ts":"2026-02-13T11:11:09.9567827-04:00"}
+2026-02-13 11:11:09.977 -04:00 [INF] [IM] Mensaje → EventId: F5EB95AE | 🔥 FUEGO — Zona A1 | AXIS-478 | 11:11:09 | Conf. VMS abierto
+2026-02-13 11:11:09.978 -04:00 [INF] Evento 29EB1064 → 1 acción(es) generadas
+2026-02-13 11:11:09.979 -04:00 [INF] [WEB CLIENT] POST → EventId: 29EB1064 | {"id":"29EB1064","type":"Intrusion","zone":"Canal 1","severity":"WARNING","ts":"2026-02-13T11:11:09.9598424-04:00"}
+2026-02-13 11:11:10.095 -04:00 [INF] Now listening on: http://localhost:5000
+2026-02-13 11:11:10.097 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-02-13 11:11:10.097 -04:00 [INF] Hosting environment: Production
+2026-02-13 11:11:10.098 -04:00 [INF] Content root path: C:\Users\ealvarez\Documents\IFA.Simulator\src\IFA.Simulator.Web
+2026-02-13 11:11:13.779 -04:00 [INF] [PHASER:DMP] C0B1CC88 — "Fire" | "Critical" | Área 1 / Zona 02
+2026-02-13 11:11:13.781 -04:00 [INF] Evento C0B1CC88 → 4 acción(es) generadas
+2026-02-13 11:11:13.782 -04:00 [INF] [VMS] Comando → EventId: C0B1CC88 | OPEN_CAM|zone=Área 1 / Zona 02|event=Fire|device=DMP-202
+2026-02-13 11:11:13.783 -04:00 [INF] [EMAIL] Enviado → EventId: C0B1CC88
+2026-02-13 11:11:13.783 -04:00 [INF] [WEB CLIENT] POST → EventId: C0B1CC88 | {"id":"C0B1CC88","type":"Fire","zone":"Área 1 / Zona 02","severity":"CRITICAL","ts":"2026-02-13T11:11:13.7791643-04:00"}
+2026-02-13 11:11:13.784 -04:00 [INF] [IM] Mensaje → EventId: C0B1CC88 | 🔥 FUEGO — Área 1 / Zona 02 | DMP-202 | 11:11:13 | Conf. VMS abierto
+2026-02-13 11:11:14.175 -04:00 [INF] [PHASER:AXIS] 511767F0 — "Tamper" | "Warning" | Zona B2
+2026-02-13 11:11:14.178 -04:00 [INF] Evento 511767F0 → 1 acción(es) generadas
+2026-02-13 11:11:14.180 -04:00 [INF] [WEB CLIENT] POST → EventId: 511767F0 | {"id":"511767F0","type":"Tamper","zone":"Zona B2","severity":"WARNING","ts":"2026-02-13T11:11:14.1751699-04:00"}
+2026-02-13 11:11:14.469 -04:00 [INF] [PHASER:HANWHA] 1C36DC2F — "Fire" | "Critical" | Canal 3
+2026-02-13 11:11:14.471 -04:00 [INF] Evento 1C36DC2F → 4 acción(es) generadas
+2026-02-13 11:11:14.473 -04:00 [INF] [VMS] Comando → EventId: 1C36DC2F | OPEN_CAM|zone=Canal 3|event=Fire|device=HNW-280
+2026-02-13 11:11:14.474 -04:00 [INF] [EMAIL] Enviado → EventId: 1C36DC2F
+2026-02-13 11:11:14.475 -04:00 [INF] [WEB CLIENT] POST → EventId: 1C36DC2F | {"id":"1C36DC2F","type":"Fire","zone":"Canal 3","severity":"CRITICAL","ts":"2026-02-13T11:11:14.4695554-04:00"}
+2026-02-13 11:11:14.476 -04:00 [INF] [IM] Mensaje → EventId: 1C36DC2F | 🔥 FUEGO — Canal 3 | HNW-280 | 11:11:14 | Conf. VMS abierto
+2026-02-13 11:11:17.594 -04:00 [INF] [PHASER:DMP] 6454F1FB — "LowBattery" | "Warning" | Área 1 / Zona 03
+2026-02-13 11:11:17.597 -04:00 [INF] Evento 6454F1FB → 1 acción(es) generadas
+2026-02-13 11:11:17.598 -04:00 [INF] [WEB CLIENT] POST → EventId: 6454F1FB | {"id":"6454F1FB","type":"LowBattery","zone":"Área 1 / Zona 03","severity":"WARNING","ts":"2026-02-13T11:11:17.5947322-04:00"}
+2026-02-13 11:11:17.922 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/ - null null
+2026-02-13 11:11:17.938 -04:00 [WRN] Failed to determine the https port for redirect.
+2026-02-13 11:11:17.941 -04:00 [INF] Executing endpoint '/ (/)'
+2026-02-13 11:11:18.031 -04:00 [INF] Executed endpoint '/ (/)'
+2026-02-13 11:11:18.034 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/ - 200 null text/html; charset=utf-8 112.6904ms
+2026-02-13 11:11:18.051 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - null null
+2026-02-13 11:11:18.056 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/blazor.web.js - 404 0 null 5.1813ms
+2026-02-13 11:11:18.060 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/_framework/blazor.web.js, Response status code: 404
+2026-02-13 11:11:18.393 -04:00 [INF] [PHASER:AXIS] 74C8BE31 — "Intrusion" | "Critical" | Zona C1
+2026-02-13 11:11:18.395 -04:00 [INF] Evento 74C8BE31 → 3 acción(es) generadas
+2026-02-13 11:11:18.396 -04:00 [INF] [VMS] Comando → EventId: 74C8BE31 | OPEN_CAM|zone=Zona C1|event=Intrusion|device=AXIS-885
+2026-02-13 11:11:18.397 -04:00 [INF] [EMAIL] Enviado → EventId: 74C8BE31
+2026-02-13 11:11:18.398 -04:00 [INF] [WEB CLIENT] POST → EventId: 74C8BE31 | {"id":"74C8BE31","type":"Intrusion","zone":"Zona C1","severity":"CRITICAL","ts":"2026-02-13T11:11:18.3935335-04:00"}
+2026-02-13 11:11:18.995 -04:00 [INF] [PHASER:HANWHA] 2B9EDEDC — "Intrusion" | "Warning" | Canal 2
+2026-02-13 11:11:18.998 -04:00 [INF] Evento 2B9EDEDC → 1 acción(es) generadas
+2026-02-13 11:11:18.999 -04:00 [INF] [WEB CLIENT] POST → EventId: 2B9EDEDC | {"id":"2B9EDEDC","type":"Intrusion","zone":"Canal 2","severity":"WARNING","ts":"2026-02-13T11:11:18.9947940-04:00"}
+2026-02-13 11:11:21.414 -04:00 [INF] [PHASER:DMP] 1D6441B6 — "Panic" | "Critical" | Área 2 / Zona 04
+2026-02-13 11:11:21.417 -04:00 [INF] Evento 1D6441B6 → 4 acción(es) generadas
+2026-02-13 11:11:21.418 -04:00 [INF] [VMS] Comando → EventId: 1D6441B6 | OPEN_CAM|zone=Área 2 / Zona 04|event=Panic|device=DMP-658
+2026-02-13 11:11:21.419 -04:00 [INF] [EMAIL] Enviado → EventId: 1D6441B6
+2026-02-13 11:11:21.420 -04:00 [INF] [WEB CLIENT] POST → EventId: 1D6441B6 | {"id":"1D6441B6","type":"Panic","zone":"Área 2 / Zona 04","severity":"CRITICAL","ts":"2026-02-13T11:11:21.4139977-04:00"}
+2026-02-13 11:11:21.421 -04:00 [INF] [IM] Mensaje → EventId: 1D6441B6 | 🆘 PÁNICO — Área 2 / Zona 04 | DMP-658 | 11:11:21
+2026-02-13 11:11:22.596 -04:00 [INF] [PHASER:AXIS] 701D29DB — "Medical" | "Critical" | Zona A3
+2026-02-13 11:11:22.599 -04:00 [INF] Evento 701D29DB → 3 acción(es) generadas
+2026-02-13 11:11:22.600 -04:00 [INF] [VMS] Comando → EventId: 701D29DB | OPEN_CAM|zone=Zona A3|event=Medical|device=AXIS-156
+2026-02-13 11:11:22.601 -04:00 [INF] [EMAIL] Enviado → EventId: 701D29DB
+2026-02-13 11:11:22.602 -04:00 [INF] [WEB CLIENT] POST → EventId: 701D29DB | {"id":"701D29DB","type":"Medical","zone":"Zona A3","severity":"CRITICAL","ts":"2026-02-13T11:11:22.5967435-04:00"}
+2026-02-13 11:11:25.222 -04:00 [INF] [PHASER:DMP] 423ED64D — "ZoneRestore" | "Info" | Área 1 / Zona 01
+2026-02-13 11:11:25.224 -04:00 [INF] Evento 423ED64D → 1 acción(es) generadas
+2026-02-13 11:11:25.226 -04:00 [INF] [WEB CLIENT] POST → EventId: 423ED64D | {"id":"423ED64D","type":"RESTORE","zone":"Área 1 / Zona 01","ts":"2026-02-13T11:11:25.2220647-04:00"}
+2026-02-13 11:11:28.698 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-02-13 11:11:28.701 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 3.1457ms
+2026-02-13 11:11:28.704 -04:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5000/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-02-13 11:11:29.038 -04:00 [INF] [PHASER:DMP] BB2176AC — "AcPowerLoss" | "Warning" | Área 3 / Zona 05
+2026-02-13 11:11:29.040 -04:00 [INF] Evento BB2176AC → 1 acción(es) generadas
+2026-02-13 11:11:29.041 -04:00 [INF] [WEB CLIENT] POST → EventId: BB2176AC | {"id":"BB2176AC","type":"AcPowerLoss","zone":"Área 3 / Zona 05","severity":"WARNING","ts":"2026-02-13T11:11:29.0382705-04:00"}
+2026-02-13 11:11:32.844 -04:00 [INF] [PHASER:DMP] 5C160FE4 — "ZoneRestore" | "Info" | Área 1 / Zona 02
+2026-02-13 11:11:32.846 -04:00 [INF] Evento 5C160FE4 → 1 acción(es) generadas
+2026-02-13 11:11:32.847 -04:00 [INF] [WEB CLIENT] POST → EventId: 5C160FE4 | {"id":"5C160FE4","type":"RESTORE","zone":"Área 1 / Zona 02","ts":"2026-02-13T11:11:32.8440271-04:00"}
+2026-02-13 11:11:36.662 -04:00 [INF] IFA Pipeline completado. Total eventos: 14
+2026-02-13 11:11:58.765 -04:00 [INF] Application is shutting down...

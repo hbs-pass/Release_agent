@@ -1,0 +1,61 @@
+/* IFA Simulator — HyperIT Dashboard */
+
+:root {
+    --ifa-red:     #EF5350;
+    --ifa-dark:    #0D0D0D;
+    --ifa-surface: #1A1A1A;
+    --ifa-border:  #2A2A2A;
+}
+
+html, body {
+    background-color: var(--ifa-dark) !important;
+    color: #E0E0E0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Blink en eventos críticos */
+@keyframes criticalBlink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+.critical-row {
+    animation: criticalBlink 1.5s ease-in-out infinite;
+}
+
+/* Tabla IFA */
+.ifa-table .mud-table-row:hover {
+    background: rgba(239, 83, 80, 0.08) !important;
+}
+
+.ifa-table thead th {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    border-bottom: 1px solid var(--ifa-border) !important;
+}
+
+/* KPI cards hover */
+.mud-paper:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+/* Scrollbar oscuro */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--ifa-dark); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ifa-red); }
+
+/* Status chip pulsante */
+.mud-chip.live-chip {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.6); }
+    70%  { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}
