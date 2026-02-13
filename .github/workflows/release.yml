@@ -176,7 +176,7 @@ jobs:
       - name: Run SmartAssembly obfuscation
         shell: pwsh
         run: |
-          $saProject = "${{ github.workspace }}\installer\HIS2026.saproj"
+          $saProject = "${{ github.workspace }}\installer\IFA.Simulator.saproj"
           $publishDir = "${{ env.PUBLISH_DIR }}"
           $obfDir     = "${{ env.OBFUSCATED_DIR }}"
 
