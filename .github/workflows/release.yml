@@ -42,8 +42,8 @@ on:
 env:
   APP_NAME:          "HIS2026"
   DOTNET_VERSION:    "8.0.x"
-  PROJECT_PATH:      "src/HIS2026/HIS2026.csproj"      # Relative to repo root
-  SOLUTION_PATH:     "HIS2026.sln"                      # Optional, used by restore
+  PROJECT_PATH:      "src/IFA.Simulator.Web/IFA.Simulator.Web.csproj"      # Relative to repo root
+  SOLUTION_PATH:     "IFA.Simulator.sln"                      # Optional, used by restore
   PUBLISH_DIR:       "${{ github.workspace }}/artifacts/publish"
   OBFUSCATED_DIR:    "${{ github.workspace }}/artifacts/obfuscated"
   RELEASE_DIR:       "${{ github.workspace }}/artifacts/release"
