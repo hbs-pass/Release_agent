@@ -110,6 +110,16 @@ jobs:
           Write-Host "Installer filename: $name"
 
       # -----------------------------------------------------------------------
+      - name: Clean version for .NET
+        shell: pwsh
+        run: |
+          $raw = "${{ steps.resolve_version.outputs.version }}"
+          $clean = $raw.TrimStart("v")
+          echo "VERSION=$clean" >> $env:GITHUB_ENV
+          Write-Host "Clean .NET version: $clean"
+   
+
+      # -----------------------------------------------------------------------
       - name: Setup .NET SDK ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v4
         with:
@@ -130,8 +140,8 @@ jobs:
             --self-contained false `
             --no-restore `
             -p:PublishSingleFile=false `
-            -p:AssemblyVersion="${{ steps.resolve_version.outputs.version }}" `
-            -p:FileVersion="${{ steps.resolve_version.outputs.version }}"
+            -p:AssemblyVersion="${{ env.VERSION }}"
+            -p:FileVersion="${{ env.VERSION }}"
 
       # -----------------------------------------------------------------------
       - name: Upload published artifacts
