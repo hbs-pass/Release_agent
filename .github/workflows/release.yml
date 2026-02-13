@@ -184,8 +184,6 @@ jobs:
 
           # SmartAssembly CLI: build the .saproj and output to OBFUSCATED_DIR
           & "${{ env.SA_CLI }}" /build "$saProject" `
-              /outputFolder "$obfDir" `
-              /inputFolder  "$publishDir"
 
           if ($LASTEXITCODE -ne 0) {
             Write-Error "SmartAssembly failed with exit code $LASTEXITCODE"

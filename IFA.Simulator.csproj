@@ -9,7 +9,13 @@
     <AssemblyName>IFA.Simulator</AssemblyName>
     <RootNamespace>IFA.Simulator</RootNamespace>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+  <Optimize>true</Optimize>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  <Optimize>false</Optimize>
+</PropertyGroup>
 
 </Project>
